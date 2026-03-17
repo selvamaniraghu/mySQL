@@ -2,4 +2,177 @@ MySQL
 
 => MySQL Interview Preparation Roadmap
 
-	
+	1. MySQL Fundamentals
+
+		Topics to Cover
+
+			- What is a Database?
+			- What is MySQL?
+			- RDBMS vs DBMS
+			- Tables, Rows, Columns
+			- Primary Key
+			- Foreign Key
+			- Unique Key
+			- Null vs Not Null
+			- Default values	
+
+			Basic Commands
+
+				CREATE DATABASE
+				CREATE TABLE
+				INSERT
+				SELECT
+				UPDATE
+				DELETE
+				DROP
+				TRUNCATE
+
+	2. SQL Query Basics
+
+		Filtering Data
+
+			WHERE
+			AND / OR
+			BETWEEN
+			IN
+			LIKE
+			LIMIT
+
+		Sorting Data
+
+			ORDER BY
+			ASC / DESC
+
+		Aggregate Functions
+
+			COUNT()
+			SUM()
+			AVG()
+			MIN()
+			MAX()
+
+	3. GROUP BY & HAVING
+
+	4. JOINS (Most Important Topic)
+
+		Types:
+
+			INNER JOIN
+			LEFT JOIN
+			RIGHT JOIN
+			FULL JOIN (conceptually)
+
+			1. Difference between INNER JOIN vs LEFT JOIN? (Important question)
+
+	5. Subqueries
+
+		Types:
+
+		 	- Single row subquery
+			- Multi row subquery
+			- Correlated subquery
+
+	6. Indexing
+
+		Types:
+
+			- What is an Index
+			- Types of indexes
+			- Clustered vs Non-clustered
+			- Composite index
+			- When NOT to use indexes
+
+	7. Constraints
+
+		Types:
+
+			- PRIMARY KEY
+			- FOREIGN KEY
+			- UNIQUE
+			- NOT NULL
+			- CHECK
+			- DEFAULT
+
+	8. Normalization (theory questions.)
+
+		Normal Forms:
+
+			- 1NF
+			- 2NF
+			- 3NF
+			- BCNF
+
+		You should understand:
+
+			- Removing redundancy
+			- Functional dependency
+
+	9. Transactions (Very important for backend developers)
+
+		Concepts:
+
+			- COMMIT
+			- ROLLBACK
+			- SAVEPOINT
+
+		ACID Properties:
+
+			- Atomicity
+			- Consistency
+			- Isolation
+			- Durability
+
+	10. Stored Procedures
+
+	11. Views (Virtual tables)
+
+	12. Triggers (Automated database events)
+
+	13. Performance Optimization
+
+		Topics:
+
+			- Query optimization
+			- EXPLAIN
+			- Index usage
+			- Avoid SELECT *
+			- Pagination
+
+	14. Advanced Interview SQL Questions
+
+		Practice queries like:
+
+			- Second highest salary
+			- Nth highest salary
+			- Duplicate records
+			- Top N records per group
+			- Find missing values
+			- Self joins
+
+	15. MySQL + Backend Integration
+
+		Since you work with Spring Boot, be ready for:
+
+			- JDBC
+			- Connection Pooling
+			- ORM (Hibernate / JPA)
+			- Transactions in Spring Boot
+
+=> Recommended Preparation Order
+
+	1️. SQL Basics
+	2️. WHERE / GROUP BY / HAVING
+	3️. JOINS
+	4️. Subqueries
+	5️. Indexes
+	6️. Normalization
+	7️. Transactions
+	8️. Views / Procedures / Triggers
+	9️. Performance tuning
+	10. SQL interview problems
+
+=> Practice on:
+
+	- HackerRank
+	- LeetCode
+	- SQLZoo

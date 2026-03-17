@@ -1,0 +1,132 @@
+JOINS
+
+	- JOIN is used to combine rows from two or more tables based on a related column between them
+
+	- Joins are used when data is stored in multiple tables but needs to be retrieved together.
+
+
+	Example Tables
+
+		Employee table
+
+		| emp_id | name  | department_id |
+		| ------ | ----- | ------------- |
+		| 1      | Ravi  | 101           |
+		| 2      | Priya | 102           |
+		| 3      | Arun  | 101           |
+		| 4      | Kiran | 103           |
+
+		Departments Table
+
+		| department_id | department_name |
+		| ------------- | --------------- |
+		| 101           | IT              |
+		| 102           | HR              |
+		| 103           | Finance         |
+
+	1. INNER JOIN
+
+		INNER JOIN returns only the matching records from both tables.
+
+		Example:
+
+			SELECT employees.name, departments.department_name
+			FROM employees
+			INNER JOIN departments
+			ON employees.department_id = departments.department_id;
+
+		Result:
+
+			| name  | department_name |
+			| ----- | --------------- |
+			| Ravi  | IT              |
+			| Priya | HR              |
+			| Arun  | IT              |
+			| Kiran | Finance         |
+
+	2. LEFT JOIN (LEFT OUTER JOIN)
+
+		- LEFT JOIN returns all rows from the left table and matching rows from the right table.
+
+		- If there is no match, NULL is returned.
+
+		Example:
+
+			SELECT employees.name, departments.department_name
+			FROM employees
+			LEFT JOIN departments
+			ON employees.department_id = departments.department_id;
+
+			// Result includes all employees even if department doesn't exist.
+
+	3. RIGHT JOIN (RIGHT OUTER JOIN)
+
+		- RIGHT JOIN returns all rows from the right table and matching rows from the left table.
+
+		Example
+
+			SELECT employees.name, departments.department_name
+			FROM employees
+			RIGHT JOIN departments
+			ON employees.department_id = departments.department_id;
+
+			// Result includes all departments, even if no employees exist.
+
+	4. FULL JOIN (Concept)
+
+		- MySQL does not support FULL JOIN directly.
+
+		- FULL JOIN returns all records from both tables.
+
+		- It can be simulated using UNION.
+
+		Example:
+
+			SELECT employees.name, departments.department_name
+			FROM employees
+			LEFT JOIN departments
+			ON employees.department_id = departments.department_id
+
+			UNION
+
+			SELECT employees.name, departments.department_name
+			FROM employees
+			RIGHT JOIN departments
+			ON employees.department_id = departments.department_id;
+
+	=> Visual Understanding
+
+		INNER JOIN
+
+			Table A ∩ Table B
+			(Only matching records)
+
+		LEFT JOIN
+
+			All records from Table A + matching from Table B
+
+		RIGHT JOIN
+
+			All records from Table B + matching from Table A
+
+	=> Difference Between Joins
+
+		| Join Type  | Result                              |
+		| ---------- | ----------------------------------- |
+		| INNER JOIN | Only matching rows                  |
+		| LEFT JOIN  | All rows from left table + matches  |
+		| RIGHT JOIN | All rows from right table + matches |
+		| FULL JOIN  | All rows from both tables           |
+
+	=> Difference between INNER JOIN vs LEFT JOIN?
+
+		- Both INNER JOIN and LEFT JOIN are used to combine data from multiple tables, but they return different results depending on matching records.
+
+		| Feature           | INNER JOIN            | LEFT JOIN                   |
+		| ----------------- | --------------------- | --------------------------- |
+		| Matching rows     | Only matching records | All left table rows         |
+		| Non-matching rows | Excluded              | Included with NULL          |
+		| Result size       | Smaller               | Larger or equal             |
+		| Use case          | Only related data     | Include all left table data |
+
+		

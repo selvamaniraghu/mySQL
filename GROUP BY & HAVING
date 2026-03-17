@@ -1,0 +1,18 @@
+GROUP BY & HAVING
+
+	- Both GROUP BY and HAVING are used with aggregate functions like COUNT(), SUM(), AVG(), etc.
+
+		# GROUP BY → groups rows with the same values.
+		# HAVING → filters grouped results.
+
+	1. GROUP BY
+
+		- GROUP BY is used to group rows that have the same values in a column.
+
+		- It is commonly used with aggregate functions.
+
+	2. HAVING
+
+		- HAVING is used to filter the grouped results.
+
+		- It works after GROUP BY.
