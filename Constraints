@@ -1,0 +1,96 @@
+Constraints
+
+	- Constraints are rules applied to table columns to ensure the accuracy, reliability, and integrity of the data stored in a database.
+
+	- They restrict the type of data that can be inserted into a table.
+
+	=> Types of Constraints
+
+		1. PRIMARY KEY
+
+			- A Primary Key uniquely identifies each record in a table.
+
+			Features:
+
+				- Must be unique
+				- Cannot contain NULL values
+
+				CREATE TABLE employees (
+				 id INT PRIMARY KEY,
+				 name VARCHAR(50)
+				);
+
+		2. FOREIGN KEY
+
+			- A Foreign Key creates a relationship between two tables.
+
+			It references the Primary Key of another table.
+
+				CREATE TABLE orders (
+				 order_id INT PRIMARY KEY,
+				 customer_id INT,
+				 FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+				);
+
+		3. UNIQUE
+
+			- Ensures that all values in a column are unique.
+
+				CREATE TABLE users (
+				 id INT PRIMARY KEY,
+				 email VARCHAR(100) UNIQUE
+				);
+
+				// This prevents duplicate email addresses.
+
+		4. NOT NULL
+
+			- Ensures a column cannot have NULL values.
+
+				CREATE TABLE employees (
+				 id INT PRIMARY KEY,
+				 name VARCHAR(50) NOT NULL
+				);
+
+				// The name field must always have a value.
+
+		5. DEFAULT
+
+			- Provides a default value if no value is specified.
+
+				CREATE TABLE orders (
+				 order_id INT PRIMARY KEY,
+				 status VARCHAR(20) DEFAULT 'Pending'
+				);
+
+				// If status is not provided, it automatically becomes Pending.
+
+		6. CHECK
+
+			- Ensures that values in a column meet a specific condition.
+
+				CREATE TABLE employees (
+				 id INT PRIMARY KEY,
+				 salary INT CHECK (salary > 0)
+				);
+
+				// This prevents negative salary values.
+
+	=> Example with Multiple Constraints
+
+		CREATE TABLE employees (
+		 id INT PRIMARY KEY,
+		 name VARCHAR(50) NOT NULL,
+		 email VARCHAR(100) UNIQUE,
+		 salary INT CHECK (salary > 0),
+		 status VARCHAR(20) DEFAULT 'Active'
+		);
+
+	=> Why Constraints Are Important
+
+		- Maintain data integrity
+		- Prevent invalid data
+		- Ensure consistency in the database
+		- Define relationships between tables
+
+	

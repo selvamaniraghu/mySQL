@@ -1,0 +1,86 @@
+Indexing
+
+	- An Index is a database structure used to speed up data retrieval from a table. ⚡
+
+	- An index is a database structure that improves the speed of data retrieval by allowing MySQL to locate rows quickly without scanning the entire table.
+
+	- It works like an index in a book:
+
+		- Instead of scanning every page, you directly find the page number.
+
+	- Similarly, in MySQL, an index helps the database locate rows faster without scanning the entire table.
+
+	=> Without an index:
+
+		- MySQL scans every row in the table
+		- This is called Full Table Scan
+		- Query becomes slow
+
+	=> Example With Index
+
+		CREATE INDEX idx_employee_name ON employees(name);
+
+	=> Types of Indexes in MySQL
+
+		1. Primary Index
+
+			- Automatically created when a Primary Key is defined.
+
+				CREATE TABLE employees (
+				 id INT PRIMARY KEY,
+				 name VARCHAR(50)
+				);
+
+		2. Unique Index
+
+			- Ensures all values are unique.
+
+				CREATE UNIQUE INDEX idx_email ON users(email);
+
+		3. Single Column Index
+
+			- Index created on one column.
+
+				CREATE INDEX idx_name ON employees(name);
+
+		4. Composite Index
+
+			- Index created on multiple columns.
+
+				CREATE INDEX idx_name_dept ON employees(name, department);
+
+	=> When to Use Index
+
+		- Columns used in WHERE clause
+		- Columns used in JOIN
+		- Columns used in ORDER BY
+		- Columns used in GROUP BY
+
+	=> When NOT to Use Index
+
+		- Table is very small
+		- Column has many duplicate values
+		- Column is rarely used in queries
+
+	=> Disadvantage of Index
+
+		- Takes extra storage
+		- Slows down INSERT, UPDATE, DELETE because index must be updated.
+
+	=> Check Query Performance
+
+		Use EXPLAIN:
+
+			EXPLAIN SELECT * FROM employees WHERE name = 'Ravi';
+
+				- It shows whether MySQL uses an index or scans the table.
+
+	=> Very Common Interview Question
+
+		- Difference between Clustered Index and Non-Clustered Index
+
+			| Clustered Index                 | Non-Clustered Index    |
+			| ------------------------------- | ---------------------- |
+			| Data stored physically in order | Separate structure     |
+			| Only one per table              | Multiple allowed       |
+			| Usually Primary Key             | Used for other columns |

@@ -1,0 +1,258 @@
+Normalization
+
+	- Normalization is the process of organizing data in a database to reduce redundancy and improve data integrity.
+
+	- It divides large tables into smaller related tables and defines relationships between them.
+
+	=> Why Normalization is Important
+
+		- Reduces duplicate data
+		- Improves data consistency
+		- Saves storage space
+		- Makes database maintenance easier
+
+	=> Example Without Normalization
+
+		- Suppose we store student and course data in one table.
+
+			| StudentID | StudentName | Course | Instructor |
+			| --------- | ----------- | ------ | ---------- |
+			| 1         | Ravi        | Java   | Kumar      |
+			| 1         | Ravi        | Python | Raj        |
+			| 2         | Priya       | Java   | Kumar      |
+
+			Problems:
+
+				- Student name repeated
+				- Instructor repeated
+				- Data redundancy
+
+	=> After Normalization
+
+		| StudentID | StudentName |
+		| --------- | ----------- |
+		| 1         | Ravi        |
+		| 2         | Priya       |
+
+		| CourseID | CourseName | Instructor |
+		| -------- | ---------- | ---------- |
+		| 101      | Java       | Kumar      |
+		| 102      | Python     | Raj        |
+
+		| StudentID | CourseID |
+		| --------- | -------- |
+		| 1         | 101      |
+		| 1         | 102      |
+		| 2         | 101      |
+
+		// Now data is organized and duplication is reduced.
+
+	=> Types of Normal Forms
+
+		1. First Normal Form (1NF)
+
+			Rule:
+
+				- Each column should contain atomic (single) values
+				- No repeating groups
+
+				Not 1NF
+
+					| Student | Courses      |
+					| ------- | ------------ |
+					| Ravi    | Java, Python |
+
+					// Multiple values in one column.
+
+				1NF
+
+					| Student | Course |
+					| ------- | ------ |
+					| Ravi    | Java   |
+					| Ravi    | Python |
+
+		2. Second Normal Form (2NF)
+
+			Rules:
+
+				- Must satisfy 1NF
+				- No partial dependency 
+
+			Meaning: Every non-key column must depend on the entire primary key.
+
+			Example:
+
+				| StudentID | CourseID | StudentName |
+				| --------- | -------- | ----------- |
+
+				Here: StudentName depends only on StudentID.
+
+				Solution: Split into tables:
+
+				Students Table
+				Courses Table
+				Enrollment Table
+
+		3. Third Normal Form (3NF)
+
+			Rules:
+
+				- Must satisfy 2NF
+				- No transitive dependency
+
+			Meaning: Non-key columns should depend only on the primary key, not on other columns.
+
+			Example problem:
+
+				| EmployeeID | DepartmentID | DepartmentName |
+
+				Here: DepartmentName depends on DepartmentID, not EmployeeID.
+
+				Solution: Employees Table :- | EmployeeID | DepartmentID |, Departments Table :- | DepartmentID | DepartmentName |
+
+	=> Summary
+
+		| Normal Form | Rule                     |
+		| ----------- | ------------------------ |
+		| 1NF         | No repeating groups      |
+		| 2NF         | No partial dependency    |
+		| 3NF         | No transitive dependency |
+
+	=> Very Common Interview Question
+
+		What is the difference between 2NF and 3NF?
+
+			Short answer:
+
+				- 2NF removes partial dependency
+				- 3NF removes transitive dependency
+
+	1. Removing Redundancy in Databases
+
+		- Redundancy means duplicate or repeated data stored in a database.
+
+			Too much redundancy can cause:
+
+				- Data inconsistency
+				- More storage usage
+				- Difficult updates
+
+			Normalization is used to remove redundancy.
+
+		=> Example with Redundancy
+
+			| StudentID | StudentName | Course | Instructor |
+			| --------- | ----------- | ------ | ---------- |
+			| 1         | Ravi        | Java   | Kumar      |
+			| 1         | Ravi        | Python | Raj        |
+			| 2         | Priya       | Java   | Kumar      |
+
+			Problems:
+
+				- StudentName repeated
+				- Instructor repeated
+				- If Ravi’s name changes → must update in multiple rows.
+
+		=> Removing Redundancy (Normalization)
+
+			- Split the table into smaller tables.
+
+				| StudentID | StudentName |
+				| --------- | ----------- |
+				| 1         | Ravi        |
+				| 2         | Priya       |
+
+				| CourseID | CourseName | Instructor |
+				| -------- | ---------- | ---------- |
+				| 101      | Java       | Kumar      |
+				| 102      | Python     | Raj        |
+
+				| StudentID | CourseID |
+				| --------- | -------- |
+				| 1         | 101      |
+				| 1         | 102      |
+				| 2         | 101      |
+
+				- Data repetition is reduced
+				- Database is organized
+
+	2. Functional Dependency
+
+		- A Functional Dependency describes the relationship between two attributes in a table.
+
+			If A → B, it means: If we know A, we can determine B.
+
+			=> Example:
+
+				| StudentID | StudentName |
+				| --------- | ----------- |
+				| 1         | Ravi        |
+				| 2         | Priya       |
+
+			Functional dependency: StudentID → StudentName
+
+			Meaning: StudentID uniquely determines StudentName.
+
+			=> Another Example
+
+				| EmployeeID | DepartmentID | DepartmentName |
+				| ---------- | ------------ | -------------- |
+				| 1          | 101          | IT             |
+
+				Functional dependencies:
+
+					EmployeeID → DepartmentID
+					DepartmentID → DepartmentName
+
+					Here: DepartmentName depends on DepartmentID.
+
+				This creates transitive dependency, which is removed in 3NF.
+
+			=> Types of Functional Dependency
+
+				1. Full Functional Dependency
+
+					- A column depends on the entire primary key.
+
+					Example: (StudentID, CourseID) → Grade
+
+						Grade depends on both StudentID and CourseID.
+
+				2. Partial Dependency
+
+					- A column depends on only part of a composite key.
+
+					Example: (StudentID, CourseID) → StudentName
+
+						StudentName depends only on StudentID → Partial dependency.
+
+						This violates 2NF.
+
+				3. Transitive Dependency
+
+					- A column depends on another non-key column.
+
+						Example:
+
+							EmployeeID → DepartmentID
+							DepartmentID → DepartmentName
+
+							So: EmployeeID → DepartmentName (This violates 3NF)
+
+	=> Best Interview Answer (Short)
+
+		Removing Redundancy
+
+			- Removing redundancy means eliminating duplicate data in a database by dividing large tables into smaller related tables using normalization.
+
+		Functional Dependency
+
+			- Functional dependency means one attribute uniquely determines another attribute in a table, represented as A → B.
+
+	=> Very Common Follow-Up Interview Question
+
+		What is Partial Dependency vs Transitive Dependency?
+
+			
+
+

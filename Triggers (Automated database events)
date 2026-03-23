@@ -1,0 +1,150 @@
+Triggers (Automated database events)
+
+	- A Trigger is a set of SQL statements that automatically executes (fires) when a specific event occurs on a table.
+
+		These events can be:
+
+			- INSERT
+
+			- UPDATE
+
+			- DELETE
+
+	Simple Definition: A trigger is a database object that automatically executes a set of SQL statements when a specified event occurs on a table.
+
+	=> Types of Triggers
+
+		Triggers are classified based on timing:
+
+		1. BEFORE Trigger
+
+			Executes before the event happens.
+
+		2. AFTER Trigger
+
+			Executes after the event happens.
+
+	=> Example Table: employees
+
+		| id | name | salary |
+		| -- | ---- | ------ |
+		| 1  | Ravi | 50000  |
+
+	=> Example 1: BEFORE INSERT Trigger
+
+		- Automatically set created_at before inserting a record.
+
+			DELIMITER $$
+
+			CREATE TRIGGER before_insert_employee
+			BEFORE INSERT ON employees
+			FOR EACH ROW
+			BEGIN
+			   SET NEW.created_at = NOW();
+			END $$
+
+			DELIMITER ;
+
+	=> Example 2: AFTER INSERT Trigger
+
+		- Log data after inserting a record.
+
+			DELIMITER $$
+
+			CREATE TRIGGER after_insert_employee
+			AFTER INSERT ON employees
+			FOR EACH ROW
+			BEGIN
+			   INSERT INTO logs(message)
+			   VALUES (CONCAT('New employee added: ', NEW.name));
+			END $$
+
+			DELIMITER ;
+
+	=> Example 3: BEFORE UPDATE Trigger
+
+		- Prevent negative salary.
+
+			DELIMITER $$
+
+			CREATE TRIGGER before_update_salary
+			BEFORE UPDATE ON employees
+			FOR EACH ROW
+			BEGIN
+			   IF NEW.salary < 0 THEN
+			      SET NEW.salary = 0;
+			   END IF;
+			END $$
+
+			DELIMITER ;
+
+	Example 4: AFTER DELETE Trigger
+
+		- Log deleted records.
+
+			DELIMITER $$
+
+			CREATE TRIGGER after_delete_employee
+			AFTER DELETE ON employees
+			FOR EACH ROW
+			BEGIN
+			   INSERT INTO logs(message)
+			   VALUES (CONCAT('Deleted employee: ', OLD.name));
+			END $$
+
+			DELIMITER ;
+
+	=> OLD vs NEW Keywords
+
+		| Keyword | Description               |
+		| ------- | ------------------------- |
+		| NEW     | New value (INSERT/UPDATE) |
+		| OLD     | Old value (UPDATE/DELETE) |
+
+	Example:
+
+		NEW.salary → new salary value
+
+		OLD.salary → previous salary value
+
+	=> When Triggers Are Fired
+
+		INSERT → BEFORE INSERT → INSERT → AFTER INSERT
+		UPDATE → BEFORE UPDATE → UPDATE → AFTER UPDATE
+		DELETE → BEFORE DELETE → DELETE → AFTER DELETE
+
+	=> Advantages of Triggers
+
+		- Automates tasks
+
+		- Ensures data integrity
+
+		- Maintains audit logs
+
+		- Enforces business rules
+
+	=> Disadvantages of Triggers
+
+		- Hard to debug
+
+		- Hidden logic (not visible in queries)
+
+		- Can affect performance
+
+	=> Real Project Example
+
+		In a banking system:
+
+			- Trigger logs every transaction automatically
+
+			- Prevents invalid updates
+
+		In an E-commerce system:
+
+			- Automatically updates stock after order
+
+			- Logs order history
+
+	=> Best Interview Answer (Short)
+
+		- A trigger is a database object that automatically executes a set of SQL statements in response to events like INSERT, UPDATE, or DELETE on a table.

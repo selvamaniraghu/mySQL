@@ -129,4 +129,12 @@ JOINS
 		| Result size       | Smaller               | Larger or equal             |
 		| Use case          | Only related data     | Include all left table data |
 
-		
+		1. How do you find records that exist in one table but not another?
+
+			SELECT employees.name
+			FROM employees
+			LEFT JOIN departments
+			ON employees.department_id = departments.department_id
+			WHERE departments.department_id IS NULL;
+
+			// This finds employees without departments.

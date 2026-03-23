@@ -1,0 +1,121 @@
+Views (Virtual tables)
+
+	- A View is a virtual table created based on the result of a SQL query. 👁️
+
+	- It does not store data physically — it only stores the query.
+
+	- Whenever you access a view, MySQL runs the underlying query and shows the result.
+
+	Simple: A view is a virtual table based on a SQL query that displays data from one or more tables without storing it physically.
+
+	=> Example Table: employees
+
+		| id | name  | department | salary |
+		| -- | ----- | ---------- | ------ |
+		| 1  | Ravi  | IT         | 50000  |
+		| 2  | Priya | HR         | 45000  |
+		| 3  | Arun  | IT         | 60000  |
+		| 4  | Kiran | Finance    | 55000  |
+
+	=> Example: Create a View
+
+		Create a view for employees with salary > 50,000:
+
+			CREATE VIEW high_salary_employees AS
+			SELECT name, salary
+			FROM employees
+			WHERE salary > 50000;
+
+		Using the View
+
+			SELECT * FROM high_salary_employees;
+
+		Result:
+
+			| name  | salary |
+			| ----- | ------ |
+			| Arun  | 60000  |
+			| Kiran | 55000  |
+
+	=> Key Points About Views
+
+		- View is a virtual table
+
+		- It does not store actual data
+
+		- It always shows latest data from base tables
+
+		- Simplifies complex queries
+
+	=> Example with Multiple Tables
+
+		CREATE VIEW employee_department AS
+		SELECT e.name, d.department_name
+		FROM employees e
+		JOIN departments d
+		ON e.department_id = d.department_id;
+
+		=> Now you can simply do:
+
+			SELECT * FROM employee_department;
+
+	=> Updating a View
+
+		CREATE OR REPLACE VIEW high_salary_employees AS
+		SELECT name, salary
+		FROM employees
+		WHERE salary > 55000;
+
+	=> Dropping a View
+
+		DROP VIEW high_salary_employees;
+
+	=> Advantages of Views
+
+		- Simplifies complex queries
+
+		- Improves security (hide sensitive columns)
+
+		- Reusable query logic
+
+		- Shows only required data
+
+	=> Disadvantages of Views
+
+		- Performance can be slower (runs query each time)
+
+		- Limited ability to update data
+
+		- Depends on base tables
+
+	=> Real Project Example
+
+		- In an E-commerce system:
+
+		- Instead of writing complex join queries every time:
+
+			SELECT users.name, orders.order_id
+			FROM users
+			JOIN orders ON users.id = orders.user_id;
+
+		- Create a view:
+
+			CREATE VIEW user_orders AS ...
+
+		- Now simply:
+
+			SELECT * FROM user_orders;
+
+	=> View vs Table
+
+		| Feature     | View             | Table       |
+		| ----------- | ---------------- | ----------- |
+		| Storage     | No data stored   | Data stored |
+		| Type        | Virtual          | Physical    |
+		| Performance | Slower           | Faster      |
+		| Usage       | Simplify queries | Store data  |
+
+	=> Best Interview Answer (Short)
+
+		- A view is a virtual table based on a SQL query that does not store data physically but displays data from one or more tables.
+

@@ -1,0 +1,538 @@
+MySQL + Backend Integration
+
+	=> JDBC (Java Database Connectivity)
+
+		- JDBC is a Java API used to connect Java applications to a database (like MySQL) and execute SQL queries. 🔌
+
+		Simple Definition: JDBC is an API in Java that allows applications to connect to databases, execute SQL queries, and retrieve results.
+
+		=> Why JDBC is Used
+
+			- Connect Java application to database
+
+			- Execute SQL queries (SELECT, INSERT, UPDATE, DELETE)
+
+			- Fetch and process results
+
+		=> JDBC Architecture
+
+			Java Application
+			      ↓
+			JDBC API
+			      ↓
+			JDBC Driver
+			      ↓
+			Database (MySQL)
+
+		=> Steps to Use JDBC
+
+			1️. Load the Driver
+			2️. Establish Connection
+			3️. Create Statement
+			4️. Execute Query
+			5️. Process Result
+			6️. Close Connection
+
+			Example Code
+
+				import java.sql.*;
+
+				public class JdbcExample {
+				    public static void main(String[] args) throws Exception {
+
+				        // 1. Establish connection
+				        Connection con = DriverManager.getConnection(
+				            "jdbc:mysql://localhost:3306/company", "root", "password");
+
+				        // 2. Create statement
+				        PreparedStatement ps = con.prepareStatement(
+				            "SELECT * FROM employees WHERE id = ?");
+
+				        // 3. Set parameter
+				        ps.setInt(1, 1);
+
+				        // 4. Execute query
+				        ResultSet rs = ps.executeQuery();
+
+				        // 5. Process result
+				        while (rs.next()) {
+				            System.out.println(rs.getString("name"));
+				        }
+
+				        // 6. Close connection
+				        con.close();
+				    }
+				}
+
+		=> Important JDBC Interfaces
+
+			| Interface         | Purpose                      |
+			| ----------------- | ---------------------------- |
+			| Connection        | Establish connection with DB |
+			| Statement         | Execute SQL queries          |
+			| PreparedStatement | Precompiled SQL (preferred)  |
+			| ResultSet         | Store query result           |
+
+		=> Statement vs PreparedStatement
+
+			| Feature     | Statement                   | PreparedStatement |
+			| ----------- | --------------------------- | ----------------- |
+			| Query       | Dynamic                     | Precompiled       |
+			| Performance | Slower                      | Faster            |
+			| Security    | Vulnerable to SQL Injection | Safe              |
+
+		=> Example:
+
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM users WHERE id = ?");
+
+		=> Advantages of JDBC
+
+			- Direct database access
+
+			- Fine control over SQL
+
+			- Works with any database
+
+		=> Disadvantages
+
+			- Boilerplate code
+
+			- Manual connection handling
+
+			- Hard to maintain in large apps
+
+			👉 That’s why frameworks like Hibernate / JPA are used.
+
+		=> Real Project Usage
+
+			In Spring Boot:
+
+				- JDBC is used internally
+
+				- Developers usually use:
+
+					- JPA / Hibernate
+
+					- Spring Data JPA
+
+		=> Best Interview Answer (Short)
+
+			- JDBC is a Java API used to connect Java applications to a database, execute SQL queries, and process the results.
+
+	=> Connection Pooling
+
+		- Connection Pooling is a technique used to reuse database connections instead of creating a new connection every time.
+
+		Simple: Connection pooling is a mechanism where a pool of database connections is created and reused to improve performance.
+
+		=> Why Connection Pooling is Needed
+
+			Creating a database connection is expensive and time-consuming because it involves:
+
+				- Network communication
+
+				- Authentication
+
+				- Resource allocation
+
+			If we create a new connection for every request → ❌ Slow performance
+
+		=> Without Connection Pooling
+
+			Request 1 → Create Connection → Use → Close
+			Request 2 → Create Connection → Use → Close
+			Request 3 → Create Connection → Use → Close
+
+			Problems:
+
+				- High overhead
+
+				- Slow response time
+
+				- Poor scalability
+
+		=> With Connection Pooling
+
+			Connection Pool (10 connections)
+
+			Request → Get connection → Use → Return to pool → Reuse
+
+			👉 Connections are reused instead of recreated
+
+		=> How It Works
+
+			- Application starts → creates a pool of connections
+
+			- Request comes → gets a connection from pool
+
+			- After use → connection is returned to pool
+
+			- Next request → reuses the same connection
+
+		=> In Spring Boot
+
+			Spring Boot uses: HikariCP (default connection pool)
+
+		=> Example Configuration
+
+			spring.datasource.url=jdbc:mysql://localhost:3306/company
+			spring.datasource.username=root
+			spring.datasource.password=1234
+
+			# HikariCP settings
+			spring.datasource.hikari.maximum-pool-size=10
+			spring.datasource.hikari.minimum-idle=5
+			spring.datasource.hikari.idle-timeout=30000
+
+		=> Important Parameters
+
+			| Property          | Description                         |
+			| ----------------- | ----------------------------------- |
+			| maximum-pool-size | Max connections in pool             |
+			| minimum-idle      | Minimum idle connections            |
+			| idle-timeout      | Time before closing idle connection |
+
+		=> Advantages
+
+			- Faster performance
+
+			- Reduces connection creation overhead
+
+			- Better resource management
+
+			- Supports high concurrency
+
+		=> Disadvantages
+
+			- Needs proper configuration
+
+			- Too many connections → DB overload
+
+		=> Real Project Example
+
+			In a Spring Boot API:
+
+			Without pooling:
+
+				- 100 users → 100 connections created → slow
+
+			With pooling:
+
+				- 100 users → reuse 10 connections → fast
+
+		=> Best Interview Answer (Short)
+
+			- Connection pooling is a technique where a set of database connections is maintained and reused, reducing the overhead of creating new connections and improving performance.
+
+	=> ORM (Hibernate / JPA) in Spring Boot
+
+		- ORM (Object Relational Mapping) is a technique that maps:
+
+			- Java objects ↔ Database tables
+
+		👉 Instead of writing SQL manually, you work with Java classes and objects.
+
+		Simple: ORM is a technique that converts data between Java objects and relational database tables automatically.
+
+		=> Why ORM is Used
+
+			Without ORM (using JDBC):
+
+				- You write SQL manually ❌
+
+				- More code ❌
+
+			With ORM:
+
+				- Work with Java objects ✅
+
+				- Less code ✅
+
+				- Faster development ✅
+
+		=> JPA vs Hibernate
+
+			1. JPA (Java Persistence API)
+
+				- It is a specification (interface)
+
+				- Defines rules for ORM
+
+				- Does not provide implementation
+
+			2. Hibernate
+
+				It is an implementation of JPA
+
+				Actually performs database operations
+
+				So:
+
+					JPA = Rules
+					Hibernate = Implementation
+
+		=> How ORM Works
+
+			Java Object (Employee)
+			        ↓
+			Hibernate / JPA
+			        ↓
+			SQL Query
+			        ↓
+			MySQL Database
+
+		=> Example Without ORM (JDBC)
+
+			SELECT * FROM employees WHERE id = 1;
+
+			You manually:
+
+				- Write SQL
+
+				- Map result to object
+
+		=> Example With ORM
+
+			1. Entity Class
+
+				import jakarta.persistence.*;
+
+				@Entity
+				@Table(name = "employees")
+				public class Employee {
+
+				    @Id
+				    private int id;
+
+				    private String name;
+				    private String department;
+				}
+
+			2. Repository
+
+				import org.springframework.data.jpa.repository.JpaRepository;
+
+				public interface EmployeeRepository 
+				        extends JpaRepository<Employee, Integer> {
+				}
+
+			3. Usage
+
+				employeeRepository.findAll();
+				employeeRepository.save(employee);
+
+				// No SQL written manually!
+
+		=> Common JPA Annotations
+
+			| Annotation      | Purpose              |
+			| --------------- | -------------------- |
+			| @Entity         | Marks class as table |
+			| @Table          | Specifies table name |
+			| @Id             | Primary key          |
+			| @Column         | Maps column          |
+			| @GeneratedValue | Auto increment       |
+
+		=> Advantages of ORM
+
+			- Reduces boilerplate code
+
+			- Faster development
+
+			- Database-independent
+
+			- Automatic mapping
+
+			- Easy CRUD operations
+
+		=> Disadvantages
+
+			- Less control over SQL
+
+			- Can generate inefficient queries
+
+			- Learning curve
+
+		=> Real Project Example
+
+			In a Spring Boot E-commerce app:
+
+			Instead of writing: INSERT INTO orders VALUES (...);
+
+			You simply do: orderRepository.save(order);
+
+		=> When to Use ORM
+
+			Use ORM when:
+
+				- Rapid development is needed
+
+				- Standard CRUD operations
+
+			Avoid ORM when:
+
+				- Complex queries required
+
+				- Performance-critical queries
+
+		=> Best Interview Answer (Short)
+
+			- ORM is a technique that maps Java objects to database tables. JPA is a specification for ORM, and Hibernate is its implementation that handles database operations automatically.
+
+	=> Transactions in Spring Boot
+
+		- In Spring Boot, transactions are managed automatically using the @Transactional annotation to ensure data consistency and integrity. 🔒
+
+		Simple: A transaction in Spring Boot is a group of database operations that are executed as a single unit, where all operations succeed or all fail together.
+
+		=> Why Transactions Are Needed
+
+			Consider a bank transfer:
+
+				- Deduct money from Account A
+
+				- Add money to Account B
+
+			If one step fails:
+
+				- The entire operation should rollback
+
+				👉 This is handled using transactions.
+
+		=> How Transactions Work in Spring Boot
+
+			Spring Boot uses:
+
+				- JPA / Hibernate
+
+				- Transaction Manager
+
+				- @Transactional annotation
+
+				Example: 
+
+					@Service
+					public class PaymentService {
+
+					    @Transactional
+					    public void transferMoney() {
+					        debitAccount();   // Step 1
+					        creditAccount();  // Step 2
+					    }
+					}
+
+		=> What Happens Internally
+
+			Start Transaction
+			       ↓
+			Execute all methods
+			       ↓
+			If success → COMMIT
+			If exception → ROLLBACK
+
+		=> Key Behavior
+
+			✅ Success Case
+
+				- All operations succeed → COMMIT
+
+			❌ Failure Case
+
+				- If any exception occurs → ROLLBACK
+
+		=> Example with Exception
+
+			@Transactional
+			public void transferMoney() {
+			    debitAccount();
+			    
+			    if (true) {
+			        throw new RuntimeException("Error occurred");
+			    }
+			    
+			    creditAccount();
+			}
+
+			Result:
+
+				- debitAccount() → rolled back
+
+				- creditAccount() → not executed
+
+				// No changes saved in DB
+
+		=> Important Points
+
+			1. Rollback Happens On
+
+				- RuntimeException (default)
+
+				- Errors
+
+			2. No Rollback On (by default)
+
+				- No Rollback On (by default)
+
+					Can be configured: @Transactional(rollbackFor = Exception.class)
+
+			3. Transaction Propagation
+
+				- Controls how transactions behave when calling another method.
+
+					Common types:
+
+						| Type         | Meaning                     |
+						| ------------ | --------------------------- |
+						| REQUIRED     | Join existing or create new |
+						| REQUIRES_NEW | Always create new           |
+						| SUPPORTS     | Use if exists               |
+
+		=> Example with Repository
+
+			@Service
+			public class OrderService {
+
+			    @Autowired
+			    private OrderRepository orderRepository;
+
+			    @Transactional
+			    public void createOrder(Order order) {
+			        orderRepository.save(order);
+			    }
+			}
+
+
+		=> Real Project Example
+
+			E-commerce Order Flow
+
+				- Save order
+
+				- Update inventory
+
+				- Process payment
+
+			If payment fails:
+			👉 Entire transaction rolls back
+
+		=> Advantages
+
+			- Automatic transaction management
+
+			- Ensures data consistency
+
+			- Reduces manual handling
+
+			- Works seamlessly with JPA/Hibernate
+
+		=> Common Mistakes
+
+			- Not using @Transactional
+
+			- Calling transactional method within same class (proxy issue)
+
+			- Not handling exceptions properly
+
+		=> Best Interview Answer (Short)
+
+			- In Spring Boot, transactions are managed using the @Transactional annotation, which ensures that a group of database operations either all succeed (commit) or fail together (rollback), maintaining data consistency.

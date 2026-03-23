@@ -1,0 +1,122 @@
+Stored Procedures
+
+	- A Stored Procedure is a pre-written set of SQL statements stored in the database that can be executed whenever needed.
+
+	- Instead of writing the same SQL queries again and again, you can save them once and reuse them.
+
+	Simple term: A stored procedure is a collection of SQL statements stored in the database that can be executed as a single unit.
+
+	=> Why Use Stored Procedures?
+
+		- Reusability (write once, use many times)
+
+		- Improves performance
+
+		- Reduces network traffic
+
+		- Better security (restrict direct table access)
+
+	=> Basic Syntax
+
+		DELIMITER $$
+
+		CREATE PROCEDURE procedure_name()
+		BEGIN
+		   -- SQL statements
+		END $$
+
+		DELIMITER ;
+
+	=> Example 1: Simple Stored Procedure
+
+		DELIMITER $$
+
+		CREATE PROCEDURE GetEmployees()
+		BEGIN
+		   SELECT * FROM employees;
+		END $$
+
+		DELIMITER ;
+
+		=> Execute Procedure
+
+			CALL GetEmployees();
+
+	=> Example 2: Stored Procedure with Parameters
+
+		DELIMITER $$
+
+		CREATE PROCEDURE GetEmployeeById(IN empId INT)
+		BEGIN
+		   SELECT * FROM employees WHERE id = empId;
+		END $$
+
+		DELIMITER ;
+
+		=> Execute Procedure
+
+			CALL GetEmployeeById(1);
+
+	=> Types of Parameters
+
+		1. IN (Input Parameter)
+
+			- Used to pass value into procedure
+
+			CREATE PROCEDURE example(IN id INT)
+
+		2. OUT (Output Parameter)
+
+			- Used to return value from procedure
+
+			DELIMITER $$
+
+			CREATE PROCEDURE GetTotalEmployees(OUT total INT)
+			BEGIN
+			   SELECT COUNT(*) INTO total FROM employees;
+			END $$
+
+			DELIMITER ;
+
+			=> Execute Procedure
+
+				CALL GetTotalEmployees(@total);
+				SELECT @total;
+
+		3. INOUT (Both Input & Output)
+
+			CREATE PROCEDURE example(INOUT num INT)
+
+	=> Real Project Example
+
+		In a Spring Boot + MySQL application:
+
+		Instead of writing this query repeatedly: SELECT * FROM orders WHERE user_id = ?;
+
+		You can create: CREATE PROCEDURE GetOrdersByUser(IN userId INT)
+
+		Then call it from backend.
+
+	=> Advantages
+
+		- Faster execution (precompiled)
+
+		- Reusable logic
+
+		- Reduced code duplication
+
+		- Better security (no direct query exposure)
+
+
+	=> Disadvantages
+
+		- Harder to debug
+
+		- Less flexible than dynamic queries
+
+		- Database dependent
+
+	=> Best Interview Answer (Short)
+
+		- A stored procedure is a set of SQL statements stored in the database that can be executed as a single unit. It improves performance, reusability, and security.
+

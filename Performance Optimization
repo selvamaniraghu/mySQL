@@ -1,0 +1,153 @@
+Performance Optimization
+
+	- Performance Optimization means improving the speed and efficiency of database queries and operations.
+
+	- It ensures your application runs fast and smoothly, especially with large datasets.
+
+	Simple: Performance optimization is the process of improving query execution speed and reducing resource usage in a database.
+
+	=> Why It Is Important
+
+		- Faster application response
+
+		- Better user experience
+
+		- Efficient resource usage
+
+		- Handles large data efficiently
+
+	=> Key Techniques for Performance Optimization
+
+		1. Use Indexes Properly
+
+			- Indexes help MySQL find data quickly.
+
+				CREATE INDEX idx_name ON employees(name);
+
+			Use indexes on:
+
+				- WHERE conditions
+
+				- JOIN columns
+
+				- ORDER BY / GROUP BY
+
+		2. Avoid SELECT *
+
+			- Bad practice:
+
+				SELECT * FROM employees;
+
+			- Better:
+
+				SELECT name, salary FROM employees;
+
+					- Fetch only required columns to improve performance.
+
+		3. Use WHERE Clause Efficiently
+
+			- Filter data early:
+
+				SELECT * FROM employees WHERE department = 'IT';
+
+					- Without WHERE → full table scan → slower.
+
+		4. Use LIMIT for Large Data
+
+			SELECT * FROM employees LIMIT 10;
+
+			- Avoid loading huge datasets unnecessarily.
+
+		5. Optimize JOINs
+
+			- Use indexes on join columns
+
+			- Avoid unnecessary joins
+
+				SELECT e.name, d.department_name
+				FROM employees e
+				JOIN departments d
+				ON e.department_id = d.department_id;
+
+		6. Use EXPLAIN (Very Important)
+
+			- Check how MySQL executes queries:
+
+				EXPLAIN SELECT * FROM employees WHERE id = 1;
+
+				It shows:
+
+					- Index usage
+
+					- Table scan or not
+
+					- Query cost
+
+		7. Avoid Redundant Data (Normalization)
+
+			- Reduce duplicate data
+
+			- Use proper table structure
+
+		8. Use Proper Data Types
+
+			Use correct types:
+
+				- INT instead of VARCHAR for numbers
+
+				- Smaller types → faster queries
+
+		9. Use Batch Operations
+
+			Instead of multiple inserts:
+
+				❌ Bad: 
+
+					INSERT INTO employees VALUES (1, 'Ravi');
+					INSERT INTO employees VALUES (2, 'Priya');
+
+				✔ Good:
+
+					INSERT INTO employees VALUES
+					(1, 'Ravi'),
+					(2, 'Priya');
+
+		10. Query Optimization
+
+			❌ Slow query:
+
+				SELECT * FROM employees WHERE YEAR(join_date) = 2024;
+
+			✔ Optimized:
+
+				SELECT * FROM employees WHERE join_date BETWEEN '2024-01-01' AND '2024-12-31';
+
+	=> Real Project Example
+
+		In a Spring Boot + MySQL app:
+
+			Slow API: Fetching all users without filters
+
+			Optimized:
+
+				- Add pagination (LIMIT)
+
+				- Use indexes
+
+				- Fetch only required fields
+
+	=> Common Performance Issues
+
+		- Full table scans
+
+		- Missing indexes
+
+		- Too many joins
+
+		- Unoptimized queries
+
+		- Large data retrieval
+
+	=> Best Interview Answer (Short)
+
+		Performance optimization in MySQL involves improving query speed and efficiency using techniques like indexing, query optimization, proper use of WHERE clauses, avoiding SELECT *, and analyzing queries with EXPLAIN

@@ -1,0 +1,72 @@
+Subqueries
+
+	- A subquery is a query written inside another SQL query. The inner query executes first and its result is used by the outer query.
+
+	1. Single Row Subquery (Returns one value)
+
+		SELECT name, salary
+		FROM employees
+		WHERE salary > (
+		    SELECT AVG(salary)
+		    FROM employees
+		);
+
+	2. Multiple Row Subquery (Returns multiple values)
+
+		SELECT name
+		FROM employees
+		WHERE department IN (
+		    SELECT dept_id
+		    FROM departments
+		    WHERE location = 'Delhi'
+		);
+
+	3. Subquery with EXISTS (Checks if records exist)
+
+		SELECT name
+		FROM employees e
+		WHERE EXISTS (
+		    SELECT 1
+		    FROM departments d
+		    WHERE e.department = d.dept_id
+		);
+
+	4. Correlated Subquery
+
+		- A subquery that depends on the outer query. It runs once for each row of the outer query.
+
+		SELECT name, salary, department
+		FROM employees e
+		WHERE salary > (
+		    SELECT AVG(salary)
+		    FROM employees
+		    WHERE department = e.department
+		);
+
+	=> Example Execution Flow
+
+		Outer Query
+		   ↓
+		Subquery executes first
+		   ↓
+		Result returned to main query
+		   ↓
+		Final output
+
+	=> Advantages of Subqueries
+
+		- Simplifies complex queries
+		- Improves readability
+		- Helps compare values from another query
+		- Useful with IN, EXISTS, ANY, ALL
+
+	Very Common Interview Example
+
+		- Find the second highest salary
+
+			SELECT MAX(salary)
+			FROM employees
+			WHERE salary < (
+			    SELECT MAX(salary)
+			    FROM employees
+			);

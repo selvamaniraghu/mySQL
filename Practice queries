@@ -1,0 +1,68 @@
+Practice queries
+
+	1. Find Second Highest Salary
+
+		SELECT MAX(salary)
+		FROM employees
+		WHERE salary < (SELECT MAX(salary) FROM employees);
+
+	2. Find Duplicate Records
+
+		SELECT name, COUNT(*)
+		FROM employees
+		GROUP BY name
+		HAVING COUNT(*) > 1;
+
+	3. Find Employees with Highest Salary in Each Department
+
+		SELECT department, MAX(salary)
+		FROM employees
+		GROUP BY department;
+
+	4. Find Employees Without Department (LEFT JOIN)
+
+		SELECT e.name
+		FROM employees e
+		LEFT JOIN departments d
+		ON e.department_id = d.id
+		WHERE d.id IS NULL;
+
+	5. Count Employees in Each Department
+
+		SELECT department, COUNT(*)
+		FROM employees
+		GROUP BY department;
+
+	6. Find Nth highest salary
+
+		SELECT DISTINCT salary
+		FROM employees
+		ORDER BY salary DESC
+		LIMIT N-1, 1;
+
+	7. Top N records per group
+
+		Best Method (Using Window Function)
+
+			SELECT id, name, department, salary
+			FROM (
+			    SELECT *,
+			           DENSE_RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS rnk
+			    FROM employees
+			) t
+			WHERE rnk <= N;
+
+	8. Find Missing Values in MySQL
+
+		SELECT t1.id + 1 AS missing_id
+		FROM employees t1
+		LEFT JOIN employees t2
+		ON t1.id + 1 = t2.id
+		WHERE t2.id IS NULL;
+
+	9. Self Join in MySQL
+
+		SELECT e.name AS employee, m.name AS manager
+		FROM employees e
+		LEFT JOIN employees m
+		ON e.manager_id = m.id;
