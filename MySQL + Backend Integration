@@ -2,9 +2,7 @@ MySQL + Backend Integration
 
 	=> JDBC (Java Database Connectivity)
 
-		- JDBC is a Java API used to connect Java applications to a database (like MySQL) and execute SQL queries. 🔌
-
-		Simple Definition: JDBC is an API in Java that allows applications to connect to databases, execute SQL queries, and retrieve results.
+		JDBC is a Java API used to connect Java applications to a database, execute SQL queries, and process the results.
 
 		=> Why JDBC is Used
 
@@ -115,15 +113,9 @@ MySQL + Backend Integration
 
 					- Spring Data JPA
 
-		=> Best Interview Answer (Short)
-
-			- JDBC is a Java API used to connect Java applications to a database, execute SQL queries, and process the results.
-
 	=> Connection Pooling
 
-		- Connection Pooling is a technique used to reuse database connections instead of creating a new connection every time.
-
-		Simple: Connection pooling is a mechanism where a pool of database connections is created and reused to improve performance.
+		Connection pooling is a technique where a set of database connections is maintained and reused, reducing the overhead of creating new connections and improving performance.
 
 		=> Why Connection Pooling is Needed
 
@@ -220,19 +212,9 @@ MySQL + Backend Integration
 
 				- 100 users → reuse 10 connections → fast
 
-		=> Best Interview Answer (Short)
-
-			- Connection pooling is a technique where a set of database connections is maintained and reused, reducing the overhead of creating new connections and improving performance.
-
 	=> ORM (Hibernate / JPA) in Spring Boot
 
-		- ORM (Object Relational Mapping) is a technique that maps:
-
-			- Java objects ↔ Database tables
-
-		👉 Instead of writing SQL manually, you work with Java classes and objects.
-
-		Simple: ORM is a technique that converts data between Java objects and relational database tables automatically.
+		ORM is a technique that maps Java objects to database tables. JPA is a specification for ORM, and Hibernate is its implementation that handles database operations automatically.
 
 		=> Why ORM is Used
 
@@ -375,15 +357,9 @@ MySQL + Backend Integration
 
 				- Performance-critical queries
 
-		=> Best Interview Answer (Short)
-
-			- ORM is a technique that maps Java objects to database tables. JPA is a specification for ORM, and Hibernate is its implementation that handles database operations automatically.
-
 	=> Transactions in Spring Boot
 
-		- In Spring Boot, transactions are managed automatically using the @Transactional annotation to ensure data consistency and integrity. 🔒
-
-		Simple: A transaction in Spring Boot is a group of database operations that are executed as a single unit, where all operations succeed or all fail together.
+		- In Spring Boot, transactions are managed using the @Transactional annotation, which ensures that a group of database operations either all succeed (commit) or fail together (rollback), maintaining data consistency.
 
 		=> Why Transactions Are Needed
 
@@ -429,16 +405,6 @@ MySQL + Backend Integration
 			       ↓
 			If success → COMMIT
 			If exception → ROLLBACK
-
-		=> Key Behavior
-
-			✅ Success Case
-
-				- All operations succeed → COMMIT
-
-			❌ Failure Case
-
-				- If any exception occurs → ROLLBACK
 
 		=> Example with Exception
 
@@ -533,6 +499,3 @@ MySQL + Backend Integration
 
 			- Not handling exceptions properly
 
-		=> Best Interview Answer (Short)
-
-			- In Spring Boot, transactions are managed using the @Transactional annotation, which ensures that a group of database operations either all succeed (commit) or fail together (rollback), maintaining data consistency.

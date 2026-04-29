@@ -1,7 +1,5 @@
 Indexing
 
-	- An Index is a database structure used to speed up data retrieval from a table. ⚡
-
 	- An index is a database structure that improves the speed of data retrieval by allowing MySQL to locate rows quickly without scanning the entire table.
 
 	- It works like an index in a book:
