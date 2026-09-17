@@ -2,10 +2,6 @@ Stored Procedures
 
 	- A Stored Procedure is a pre-written set of SQL statements stored in the database that can be executed whenever needed.
 
-	- Instead of writing the same SQL queries again and again, you can save them once and reuse them.
-
-	Simple term: A stored procedure is a collection of SQL statements stored in the database that can be executed as a single unit.
-
 	=> Why Use Stored Procedures?
 
 		- Reusability (write once, use many times)
@@ -115,8 +111,4 @@ Stored Procedures
 		- Less flexible than dynamic queries
 
 		- Database dependent
-
-	=> Best Interview Answer (Short)
-
-		- A stored procedure is a set of SQL statements stored in the database that can be executed as a single unit. It improves performance, reusability, and security.
 

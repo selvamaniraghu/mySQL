@@ -158,18 +158,6 @@ MySQL
 			- ORM (Hibernate / JPA)
 			- Transactions in Spring Boot
 
-=> Recommended Preparation Order
-
-	1️. SQL Basics
-	2️. WHERE / GROUP BY / HAVING
-	3️. JOINS
-	4️. Subqueries
-	5️. Indexes
-	6️. Normalization
-	7️. Transactions
-	8️. Views / Procedures / Triggers
-	9️. Performance tuning
-	10. SQL interview problems
 
 => Practice on:
 

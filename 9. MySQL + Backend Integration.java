@@ -359,7 +359,8 @@ MySQL + Backend Integration
 
 	=> Transactions in Spring Boot
 
-		- In Spring Boot, transactions are managed using the @Transactional annotation, which ensures that a group of database operations either all succeed (commit) or fail together (rollback), maintaining data consistency.
+		- In Spring Boot, transactions are managed using the @Transactional annotation, 
+		which ensures that a group of database operations either all succeed (commit) or fail together (rollback), maintaining data consistency.
 
 		=> Why Transactions Are Needed
 

@@ -1,12 +1,10 @@
 Views (Virtual tables)
 
-	- A View is a virtual table created based on the result of a SQL query. 👁️
+	- A View is a virtual table created based on the result of a SQL query.
 
 	- It does not store data physically — it only stores the query.
 
 	- Whenever you access a view, MySQL runs the underlying query and shows the result.
-
-	Simple: A view is a virtual table based on a SQL query that displays data from one or more tables without storing it physically.
 
 	=> Example Table: employees
 
@@ -114,8 +112,3 @@ Views (Virtual tables)
 		| Type        | Virtual          | Physical    |
 		| Performance | Slower           | Faster      |
 		| Usage       | Simplify queries | Store data  |
-
-	=> Best Interview Answer (Short)
-
-		- A view is a virtual table based on a SQL query that does not store data physically but displays data from one or more tables.
-

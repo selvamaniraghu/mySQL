@@ -144,7 +144,3 @@ Triggers (Automated database events)
 			- Automatically updates stock after order
 
 			- Logs order history
-
-	=> Best Interview Answer (Short)
-
-		- A trigger is a database object that automatically executes a set of SQL statements in response to events like INSERT, UPDATE, or DELETE on a table.

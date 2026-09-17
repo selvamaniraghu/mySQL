@@ -2,10 +2,6 @@ Transactions
 
 	=> Transactions in MySQL
 
-		- A Transaction is a sequence of one or more SQL operations that are executed as a single unit of work.
-
-		- A transaction ensures that all operations succeed together or none of them are applied.
-
 		Simple Definition: A transaction is a group of SQL operations that are executed together as a single unit to maintain data consistency.
 
 		Example:
@@ -77,10 +73,6 @@ Transactions
 			If successful → COMMIT
 			If error → ROLLBACK
 
-		=> Best Interview Answer (Short)
-
-			A transaction is a sequence of database operations executed as a single unit of work. It ensures data integrity by following ACID properties and uses commands like COMMIT and ROLLBACK.
-
 	=> ACID Properties:
 
 		ACID is a set of properties that ensures database transactions are reliable and consistent.
@@ -96,7 +88,6 @@ Transactions
 				D → Durability
 
 			These properties are used to make sure transactions are processed safely.
-
 
 		1. Atomicity
 
@@ -207,10 +198,6 @@ Transactions
 			| Consistency | Database remains valid          |
 			| Isolation   | Transactions do not interfere   |
 			| Durability  | Committed changes are permanent |
-
-		=> Best Interview Answer (Short)
-
-			- ACID properties are Atomicity, Consistency, Isolation, and Durability. They ensure that database transactions are processed reliably, maintain data integrity, and remain permanent after commit.
 
 		=> Easy Memory Trick
 

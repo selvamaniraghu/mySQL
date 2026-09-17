@@ -11,42 +11,6 @@ Normalization
 		- Saves storage space
 		- Makes database maintenance easier
 
-	=> Example Without Normalization
-
-		- Suppose we store student and course data in one table.
-
-			| StudentID | StudentName | Course | Instructor |
-			| --------- | ----------- | ------ | ---------- |
-			| 1         | Ravi        | Java   | Kumar      |
-			| 1         | Ravi        | Python | Raj        |
-			| 2         | Priya       | Java   | Kumar      |
-
-			Problems:
-
-				- Student name repeated
-				- Instructor repeated
-				- Data redundancy
-
-	=> After Normalization
-
-		| StudentID | StudentName |
-		| --------- | ----------- |
-		| 1         | Ravi        |
-		| 2         | Priya       |
-
-		| CourseID | CourseName | Instructor |
-		| -------- | ---------- | ---------- |
-		| 101      | Java       | Kumar      |
-		| 102      | Python     | Raj        |
-
-		| StudentID | CourseID |
-		| --------- | -------- |
-		| 1         | 101      |
-		| 1         | 102      |
-		| 2         | 101      |
-
-		// Now data is organized and duplication is reduced.
-
 	=> Types of Normal Forms
 
 		1. First Normal Form (1NF)
@@ -139,43 +103,6 @@ Normalization
 
 			Normalization is used to remove redundancy.
 
-		=> Example with Redundancy
-
-			| StudentID | StudentName | Course | Instructor |
-			| --------- | ----------- | ------ | ---------- |
-			| 1         | Ravi        | Java   | Kumar      |
-			| 1         | Ravi        | Python | Raj        |
-			| 2         | Priya       | Java   | Kumar      |
-
-			Problems:
-
-				- StudentName repeated
-				- Instructor repeated
-				- If Ravi’s name changes → must update in multiple rows.
-
-		=> Removing Redundancy (Normalization)
-
-			- Split the table into smaller tables.
-
-				| StudentID | StudentName |
-				| --------- | ----------- |
-				| 1         | Ravi        |
-				| 2         | Priya       |
-
-				| CourseID | CourseName | Instructor |
-				| -------- | ---------- | ---------- |
-				| 101      | Java       | Kumar      |
-				| 102      | Python     | Raj        |
-
-				| StudentID | CourseID |
-				| --------- | -------- |
-				| 1         | 101      |
-				| 1         | 102      |
-				| 2         | 101      |
-
-				- Data repetition is reduced
-				- Database is organized
-
 	2. Functional Dependency
 
 		- A Functional Dependency describes the relationship between two attributes in a table.
@@ -248,11 +175,3 @@ Normalization
 		Functional Dependency
 
 			- Functional dependency means one attribute uniquely determines another attribute in a table, represented as A → B.
-
-	=> Very Common Follow-Up Interview Question
-
-		What is Partial Dependency vs Transitive Dependency?
-
-			
-
-

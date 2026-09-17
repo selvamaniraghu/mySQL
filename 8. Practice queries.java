@@ -44,6 +44,8 @@ Practice queries
 
 		Best Method (Using Window Function)
 
+		A window function in MySQL is used to perform calculations across multiple rows without combining them into a single row.
+
 			SELECT id, name, department, salary
 			FROM (
 			    SELECT *,

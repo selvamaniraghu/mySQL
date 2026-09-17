@@ -4,8 +4,6 @@ Performance Optimization
 
 	- It ensures your application runs fast and smoothly, especially with large datasets.
 
-	Simple: Performance optimization is the process of improving query execution speed and reducing resource usage in a database.
-
 	=> Why It Is Important
 
 		- Faster application response
@@ -147,7 +145,3 @@ Performance Optimization
 		- Unoptimized queries
 
 		- Large data retrieval
-
-	=> Best Interview Answer (Short)
-
-		Performance optimization in MySQL involves improving query speed and efficiency using techniques like indexing, query optimization, proper use of WHERE clauses, avoiding SELECT *, and analyzing queries with EXPLAIN
