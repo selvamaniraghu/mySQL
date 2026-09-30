@@ -68,3 +68,48 @@ Practice queries
 		FROM employees e
 		LEFT JOIN employees m
 		ON e.manager_id = m.id;
+
+	10. Find the Third Highest Salary
+
+		SELECT DISTINCT salary
+		FROM employee
+		ORDER BY salary DESC
+		LIMIT 1 OFFSET 2;
+
+		SELECT MAX(salary) AS third_highest
+		FROM employee
+		WHERE salary < (
+		    SELECT MAX(salary)
+		    FROM employee
+		    WHERE salary < (
+		        SELECT MAX(salary)
+		        FROM employee
+		    )
+		);
+
+
+	11. Nth Highest Salary
+
+		SET @N = 4;
+
+		SELECT DISTINCT salary
+		FROM employee
+		ORDER BY salary DESC
+		LIMIT 1 OFFSET @N-1;
+
+	12. Employees earning more than department average
+
+		SELECT e.id,
+		       e.name,
+		       e.department_id,
+		       e.salary
+		FROM employee e
+		WHERE e.salary > (
+		    SELECT AVG(e2.salary)
+		    FROM employee e2
+		    WHERE e2.department_id = e.department_id
+		);
+
+	13. Find duplicate emails
+
+		

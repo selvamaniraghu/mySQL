@@ -542,7 +542,7 @@ MySQL Fundamentals
 
 					CREATE INDEX idx_name ON employees(name);
 
-			4. Composite Index
+			4. Composite Index - Very Important
 
 				- Index created on multiple columns.
 
